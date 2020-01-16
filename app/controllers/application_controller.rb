@@ -21,11 +21,15 @@ class ApplicationController < Sinatra::Base
 
 
   get '/account' do
-    erb :account
+    @user = User.find_by_id(session[:user_id])
+    if @user 
+     erb :account
+    else 
+     erb :error
+    end 
   end
 
   get '/logout' do
-    binding.pry
     session.clear
     redirect to "/"
   end
